@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Phiếu nhập hàng | Bệnh viện Vinmec</title>
+    <!-- favicon -->
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="/assets/icon/android-icon-192x192.webp" />
+
+    <!-- bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jquery -->
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.js"
+      integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+      crossorigin="anonymous"></script>
+    <!-- icon -->
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet" />
+    <!-- css -->
+    <link rel="stylesheet" href="/admin/css/style.css" />
+    <link rel="stylesheet" href="/admin/css/category.css" />
+    <link rel="stylesheet" href="/admin/css/product.css" />
+    <!-- JavaScript  -->
+    <script src="/admin/js/main.js" defer></script>
+    <script src="/admin/js/import.js" defer></script>
+    <script src="/admin/js/datalistproduct.js" defer></script>
+    <script src="/users/js/search.js" defer></script>
+  </head>
+  <body>
+    <%- include("./layout/spinner.ejs") %>
+    <div class="row">
+      <%- include("./layout/sidebar.ejs") %>
+      <div class="colum-content">
+        <%- include("./layout/header.ejs") %>
+        <div class="colum-title">
+          <p>Phiếu nhập</p>
+        </div>
+        <div class="btn-add">
+          <button
+            id="xuat"
+            type="button"
+            class="m-2 rounded-2"
+            data-bs-toggle="modal"
+            data-bs-target="#modal-xuat">
+            Nhập
+          </button>
+        </div>
+        <div class="table-list">
+          <table class="table-danh-muc table table-hover">
+            <thead>
+              <tr>
+                <th>STT</th>
+                <th>ID</th>
+                <th>Tên phiếu nhập</th>
+                <th>Ngày nhập</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% listImport.forEach(function(ex, index) { %> <%#if(category.name
+              == "a") { %> <%# (!"searchInput" || category.name.includes("a")) {
+              %>
+              <tr
+                data-bs-toggle="modal"
+                data-bs-target="#modal-<%= ex.id %>"
+                class="trow">
+                <td><%= index + 1 %></td>
+                <td><%= ex.id %></td>
+                <td><%= ex.name %></td>
+                <td>
+                  <%= moment(ex.created_at).format("HH:mm--DD/MM/YYYY") %>
+                </td>
+              </tr>
+              <%# } %> <%}); %>
+            </tbody>
+          </table>
+          <!-- start phân trang -->
+          <%- include("./layout/pagination.ejs") %>
+          <!-- end phân trang -->
+        </div>
+      </div>
+    </div>
+    <!-- start phiếu nhập -->
+    <div class="modal fade" id="modal-xuat" data-bs-keyboard="false">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div
+            class="modal-header d-flex justify-content-center position-relative">
+            <h4>Phiếu nhập kho</h4>
+            <button
+              type="button"
+              class="btn-close position-absolute end-0 me-3"
+              data-bs-dismiss="modal"></button>
+          </div>
+          <form action="/admin/create-import" method="POST">
+            <div class="modal-body">
+              <div class="mb-3">
+                <button
+                  type="button"
+                  class="them-vat-tu btn btn-info"
+                  style="color: white"
+                  onclick="addNewRow()">
+                  Thêm vật tư
+                </button>
+              </div>
+              <div>
+                <table
+                  style="table-layout: auto"
+                  class="table-phieu-xuat table text-center"
+                  id="render-xuat">
+                  <thead>
+                    <tr>
+                      <th style="width: 50%">Tên vật tư</th>
+                      <th>Số lượng</th>
+                      <th style="width: 25%">Hành động</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+              <div class="mt-5">
+                <div class="mb-3 mt-3">
+                  <p>Tên phiếu nhập kho:</p>
+                  <input
+                    type="text"
+                    id="name"
+                    class="form-control"
+                    placeholder="Nhập tên phiếu nhập kho"
+                    name="name_import"
+                    required />
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-danger"
+                data-bs-dismiss="modal">
+                Hủy
+              </button>
+              <button
+                type="submit"
+                id="importButton"
+                data-bs-dismiss="modal"
+                class="xuat-phieu-kho btn btn-info">
+                Nhập
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- end phiếu nhập -->
+    <!-- start chi tiết phiếu nhập -->
+    <% listImport.forEach(function(ex) { %>
+    <div class="modal fade" id="modal-<%= ex.id  %>" data-bs-keyboard="false">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div
+            class="modal-header d-flex justify-content-center position-relative">
+            <h4>Chi tiết phiếu nhập kho</h4>
+            <button
+              type="button"
+              class="btn-close position-absolute end-0 me-3"
+              data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <div class="mt-5">
+              <div class="mb-3 mt-3">
+                <label>Tên phiếu nhập kho:</label>
+                <label><%= ex.name %></label>
+              </div>
+              <div class="mb-3 mt-3">
+                <label>Ngày nhập:</label>
+                <label>
+                  <%= moment(ex.created_at).format("HH:mm--DD/MM/YYYY") %>
+                </label>
+              </div>
+              <div>
+                <table
+                  style="table-layout: auto"
+                  class="table text-center table-striped">
+                  <thead>
+                    <tr>
+                      <th style="width: 50%">Tên vật tư</th>
+                      <th>Số lượng</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% if (listDetail[ex.id]) { %>
+                    <!-- Kiểm tra chi tiết tồn tại -->
+                    <% listDetail[ex.id].forEach(function (detail) { %>
+                    <tr>
+                      <td><%= detail.name_product %></td>
+                      <td><%= detail.quantity_product %></td>
+                    </tr>
+                    <% }); %> <% } else { %>
+                    <tr>
+                      <td colspan="2">Không có dữ liệu</td>
+                    </tr>
+                    <% } %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-danger"
+              data-bs-dismiss="modal">
+              Hủy
+            </button>
+            <button
+              type="submit"
+              id="importButton"
+              data-bs-dismiss="modal"
+              class="xuat-phieu-kho btn btn-info">
+              Nhập
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% }) %>
+
+    <!-- end chi tiết phiếu nhập -->
+  </body>
+</html>

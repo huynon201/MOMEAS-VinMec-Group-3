@@ -1,0 +1,57 @@
+<div class="colum-sidebar">
+  <nav class="sidebar locked">
+    <div class="logo-items flex">
+      <span class="nav-image">
+        <img src="/assets/icon/android-icon-192x192.webp" alt="logo_img" />
+      </span>
+      <span class="logo-name">VINMEC</span>
+      <i class="bx bx-lock-alt" id="lock-icon" title="Unlock Sidebar"></i>
+      <i class="bx bx-x" id="sidebar-close"></i>
+    </div>
+
+    <div class="menu-container">
+      <div class="menu-items">
+        <ul class="menu-item">
+          <div class="menu-title flex">
+            <span class="title">Dashboard</span>
+            <span class="line"></span>
+          </div>
+          <li class="item <%= activePage === 'home' ? 'active' : '' %>">
+            <a href="/user" class="link flex">
+              <i class="bx bxs-home"></i>
+              <span>Trang chủ</span>
+            </a>
+          </li>
+        </ul>
+        <!-- <ul class="menu-item">
+          <div class="menu-title flex">
+            <span class="title">Editor</span>
+            <span class="line"></span>
+          </div>
+          <li class="item">
+            <a href="#" class="link flex">
+              <i class="bx bxs-send"></i>
+              <span>Phát triển thêm...</span>
+            </a>
+          </li>
+        </ul> -->
+      </div>
+      <div class="sidebar-profile flex">
+        <span class="nav-image">
+          <img src="/assets/content/upload/<%= avatar %>" alt="" />
+        </span>
+        <div class="data-text">
+          <p class="name"><%= name %></p>
+          <span class="email"><%= role %></span>
+          <span class="icon-out">
+            <a href="/">
+              <i
+                style="font-size: 25px"
+                class="btn btn-outline-danger bx bx-log-out"></i>
+            </a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</div>

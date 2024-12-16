@@ -1,0 +1,114 @@
+<div class="colum-sidebar">
+  <nav class="sidebar locked">
+    <div class="logo-items flex">
+      <span class="nav-image">
+        <img src="/assets/icon/android-icon-192x192.webp" alt="logo_img" />
+      </span>
+      <span class="logo-name">VINMEC</span>
+      <i class="bx bx-lock-alt" id="lock-icon" title="Unlock Sidebar"></i>
+      <i class="bx bx-x" id="sidebar-close"></i>
+    </div>
+
+    <div class="menu-container">
+      <div class="menu-items">
+        <ul class="menu-item">
+          <div class="menu-title flex">
+            <span class="title">Dashboard</span>
+            <span class="line"></span>
+          </div>
+          <li class="item <%= activePage === 'home' ? 'active' : '' %>">
+            <a href="/admin" class="link flex">
+              <i class="bx bxs-home"></i>
+              <span>Trang chủ</span>
+            </a>
+          </li>
+          <li class="item <%= activePage === 'category' ? 'active' : '' %>">
+            <a href="/admin/categorary" class="link flex">
+              <i class="bx bxs-grid-alt"></i>
+              <span>Danh mục</span>
+            </a>
+          </li>
+        </ul>
+
+        <ul class="menu-item">
+          <div class="menu-title flex">
+            <span class="title">Editor</span>
+            <span class="line"></span>
+          </div>
+          <li class="item <%= activePage === 'product' ? 'active' : '' %>">
+            <a href="/admin/product" class="link flex">
+              <i class="bx bxs-data"></i>
+              <span>Vật tư và thiết bị</span>
+            </a>
+          </li>
+          <li class="item <%= activePage === 'account' ? 'active' : '' %>">
+            <a href="/admin/account" class="link flex">
+              <i class="bx bxs-user-circle"></i>
+              <span>Tài khoản</span>
+            </a>
+          </li>
+        </ul>
+
+        <ul class="menu-item">
+          <div class="menu-title flex">
+            <span class="title">Management</span>
+            <span class="line"></span>
+          </div>
+          <li class="item <%= activePage === 'employee' ? 'active' : '' %>">
+            <a href="/admin/employee" class="link flex">
+              <i class="bx bxs-group"></i>
+              <span>Nhân viên</span>
+            </a>
+          </li>
+          <li class="item <%= activePage === 'department' ? 'active' : '' %>">
+            <a href="/admin/departments" class="link flex">
+              <i class="bx bxs-building"></i>
+              <span>Phòng ban</span>
+            </a>
+          </li>
+        </ul>
+
+        <ul class="menu-item">
+          <div class="menu-title flex">
+            <span class="title">Document</span>
+            <span class="line"></span>
+          </div>
+          <li class="item <%= activePage === 'export' ? 'active' : '' %>">
+            <a href="/admin/export" class="link flex">
+              <i class="bx bxs-archive-out"></i>
+              <span>Phiếu xuất</span>
+            </a>
+          </li>
+          <li class="item <%= activePage === 'import' ? 'active' : '' %>">
+            <a href="/admin/import" class="link flex">
+              <i class="bx bxs-archive-in"></i>
+              <span>Phiếu nhập</span>
+            </a>
+          </li>
+          <li class="item <%= activePage === 'report' ? 'active' : '' %>">
+            <a href="/admin/report" class="link flex">
+              <i class="bx bxs-folder-minus"></i>
+              <span>Báo cáo</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="sidebar-profile flex">
+        <span class="nav-image">
+          <img src="/assets/content/upload/<%= avatar %>" alt="" />
+        </span>
+        <div class="data-text">
+          <p class="name"><%= name %></p>
+          <span class="email"><%= role %></span>
+          <span class="icon-out">
+            <a href="/">
+              <i
+                style="font-size: 25px"
+                class="btn btn-outline-danger bx bx-log-out"></i>
+            </a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</div>

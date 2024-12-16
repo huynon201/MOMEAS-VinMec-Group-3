@@ -1,0 +1,117 @@
+/* css modal */
+
+.btn-add > button {
+  background-color: #1dcbdf;
+  color: white;
+  font-weight: 600;
+  box-shadow: 0px 2px 5px 0px gray;
+  padding: 7px 30px;
+  font-size: 20px;
+  border: 2px solid #1dcbdf;
+  margin-top: 10px;
+}
+.btn-add > button:hover {
+  background-color: white;
+  color: #1dcbdf;
+  border: 2px solid #1dcbdf;
+}
+.modal-header h4 {
+  color: #1ecbe1;
+}
+.modal-body input:hover,
+.modal-body textarea:hover {
+  border-color: #4096fe;
+}
+
+.modal-footer .btn {
+  color: white;
+}
+
+/* css table */
+
+.table-danh-muc {
+  width: 100%;
+  margin: 15px 0px;
+  padding: 10px;
+  text-align: center;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+    rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+
+.table th {
+  position: relative;
+  border-right: none;
+}
+
+.table th::after {
+  content: "";
+  position: absolute;
+  top: 25%;
+  right: 0;
+  width: 1px;
+  height: 50%;
+  background-color: rgb(219, 200, 176);
+}
+
+.table th:last-child::after {
+  content: none;
+}
+.table th:first-child {
+  border-top-left-radius: 10px;
+}
+.table th:last-child {
+  border-top-right-radius: 10px;
+  border-right: 0px;
+}
+.table tr:last-child td:first-child {
+  border-bottom-left-radius: 10px;
+}
+.table tr:last-child td:last-child {
+  border-bottom-right-radius: 10px;
+}
+.table th {
+  background-color: #a5f3fc;
+  font-weight: 500;
+}
+
+/* css confirm xóa */
+
+.popover-heading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* .popover-heading span {
+  margin-left: 8px;
+} */
+.popover-body {
+  display: flex;
+  justify-content: space-between;
+}
+.popover-content {
+  /* padding: 10px; */
+  width: 200px;
+  height: 60px;
+  text-align: center;
+}
+
+#confirmDelete .popover-body button {
+  width: 40px;
+  height: 30px;
+  padding: 0; /* Loại bỏ padding để giữ kích thước nút */
+  font-size: 10px; /* Điều chỉnh kích thước chữ nếu cần */
+  line-height: 20px; /* Canh chỉnh vị trí chữ bên trong nút */
+}
+#alert-container {
+  position: fixed;
+
+  top: 0;
+
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  z-index: 1000;
+
+  width: auto; /* Tự động điều chỉnh kích thước dựa trên nội dung */
+}

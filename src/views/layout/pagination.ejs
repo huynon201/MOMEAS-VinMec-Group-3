@@ -1,0 +1,30 @@
+<!-- start phân trang -->
+<div>
+  <ul class="pagination justify-content-center">
+    <li class="page-item">
+      <a
+        href="?page=<%= currentPage - 1 %>"
+        class="page-link <%= currentPage === 1 ? 'disabled' : '' %>">
+        &lt;
+      </a>
+    </li>
+
+    <% for (let i = 1; i <= totalPages; i++) { %>
+    <li class="page-item">
+      <a
+        href="?page=<%= i %>"
+        class="page-link <%= i === currentPage ? 'active' : '' %>">
+        <%= i %>
+      </a>
+    </li>
+    <% } %>
+    <li class="page-item">
+      <a
+        href="?page=<%= currentPage + 1 %>"
+        class="page-link <%= currentPage == totalPages ? 'disabled' : '' %>">
+        &gt;
+      </a>
+    </li>
+  </ul>
+</div>
+<!-- end phân trang -->
