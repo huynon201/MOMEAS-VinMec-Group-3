@@ -1,0 +1,12 @@
+thay đổi các thông số ở file .env sao cho phù hợp với môi trường của máy bản thân
+VD: 
+NODE_ENV = #production
+PORT = 8084
+HOST_NAME = localhost
+
+DB_HOST = localhost
+DB_NAME = vinmec-sql
+DB_PORT = 3308
+DB_USER = root
+DB_PASSWORD = 123456
+JWT_SECRET = 12345
