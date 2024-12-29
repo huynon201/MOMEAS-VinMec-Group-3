@@ -40,7 +40,7 @@ function initializeAutocomplete(inputId, suggestionsId) {
 
 // Khởi tạo autocomplete cho các trường modal
 initializeAutocomplete("modalAdd", "suggestionAdd");
-initializeAutocomplete("role", "suggestionRole");
 initializeAutocomplete("modalEditElement", "suggestionEdit");
+initializeAutocomplete("role", "suggestionRole");
 initializeAutocomplete("roleEdit", "suggestionRoleEdit");
 // initializeAutocomplete("producttb", "suggestionProduct");

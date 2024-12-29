@@ -7,7 +7,9 @@ const {
   deleteCategorary,
   checkCategoryUsedInProduct,
   updateCategory,
+  createRequest,
 } = require("../services/CRUDService");
+const { avatarMiddleware } = require("../middleware/avatarMiddleware");
 const { displayProduct } = require("../services/CRUDProduct");
 var moment = require("moment");
 
@@ -16,6 +18,7 @@ const getHomePage = async (req, res) => {
   const limit = 8; // Số phần tử mỗi trang
 
   let { products, totalItems } = await displayProduct(page, limit);
+
   const totalPages = Math.ceil(totalItems / limit);
   return res.render("home.ejs", {
     activePage: "home",
@@ -109,12 +112,43 @@ const getHomePageUser = async (req, res) => {
 
   let { products, totalItems } = await displayProduct(page, limit);
   const totalPages = Math.ceil(totalItems / limit);
+  if (req.headers.accept.includes("application/json")) {
+    return res.json({
+      products,
+    });
+  }
   return res.render("homeUser.ejs", {
     activePage: "home",
     listProduct: products,
     currentPage: page,
     totalPages,
   });
+};
+const postRequest = async (req, res) => {
+  let id;
+  let isUnique = false;
+  while (!isUnique) {
+    id = generateRandomId();
+    isUnique = await checkUniqueId(id);
+  }
+  const at = new Date();
+  const create_at = moment(at).format("YYYY-MM-DD HH:mm:ss");
+  const startDate = moment(req.body.startDate, "DD/MM/YYYY").format(
+    "YYYY-MM-DD"
+  );
+  const endDate = moment(req.body.endDate, "DD/MM/YYYY").format("YYYY-MM-DD");
+  const { name_producttb, quantity, name } = req.body;
+
+  await createRequest(
+    id,
+    name,
+    name_producttb,
+    quantity,
+    startDate,
+    endDate,
+    create_at
+  );
+  res.redirect("back");
 };
 module.exports = {
   getHomePage,
@@ -123,4 +157,5 @@ module.exports = {
   postDeleteCategorary,
   postUpdateCategory,
   getHomePageUser,
+  postRequest,
 };

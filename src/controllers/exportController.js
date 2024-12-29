@@ -1,3 +1,5 @@
+const connection = require("../configs/database");
+
 const { displayEmployee } = require("../services/CRUDEmployee");
 const { displayDepartment } = require("../services/CRUDDepartment");
 const { displayProduct } = require("../services/CRUDProduct");
@@ -9,6 +11,7 @@ const {
   createExportDetails,
   displayDetail,
 } = require("../services/CRUDExport");
+const { displayRequest } = require("../services/CRUDService");
 var moment = require("moment");
 
 const getExportPage = async (req, res) => {
@@ -19,6 +22,7 @@ const getExportPage = async (req, res) => {
   let employee = await displayEmployee();
   let department = await displayDepartment();
   let product = await displayProduct();
+  let request = await displayRequest();
 
   let listDetail = {};
   for (let exportItem of listExport) {
@@ -31,6 +35,7 @@ const getExportPage = async (req, res) => {
     listEmployee: employee,
     listDepartment: department,
     listProduct: product,
+    listRequest: request,
     listExport,
     moment,
     listDetail,
@@ -54,7 +59,43 @@ const postCreateExport = async (req, res) => {
 
   res.redirect("back");
 };
+const postUpdateReq = async (req, res) => {
+  const { id, status } = req.body;
+
+  try {
+    // Trường hợp id và status là một mảng (cập nhật hàng loạt)
+    if (
+      Array.isArray(id) &&
+      Array.isArray(status) &&
+      id.length === status.length
+    ) {
+      const promises = id.map((recordId, index) => {
+        return connection.query(`UPDATE request SET status = ? WHERE id = ?`, [
+          status[index],
+          recordId,
+        ]);
+      });
+
+      await Promise.all(promises);
+    }
+
+    // Trường hợp id và status là một đối tượng đơn lẻ
+    if (typeof id === "string" && typeof status === "string") {
+      await connection.query(`UPDATE request SET status = ? WHERE id = ?`, [
+        status,
+        id,
+      ]);
+    }
+
+    // Nếu dữ liệu không đúng định dạng
+    return res.status(400).json({ error: "Invalid data format" });
+  } catch (error) {
+    console.error("Error updating status:", error);
+  }
+};
+
 module.exports = {
   getExportPage,
   postCreateExport,
+  postUpdateReq,
 };

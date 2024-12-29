@@ -10,6 +10,7 @@ const {
   postDeleteCategorary,
   postUpdateCategory,
   getHomePageUser,
+  postRequest,
 } = require("../controllers/homeController");
 // productcontroller
 const {
@@ -49,6 +50,7 @@ const {
 const {
   getExportPage,
   postCreateExport,
+  postUpdateReq,
 } = require("../controllers/exportController");
 
 // importController
@@ -125,6 +127,8 @@ adminRouter.get("/report", getReportPage);
 adminRouter.post("/get-exim", getExIm);
 
 userRouter.get("/", getHomePageUser);
+userRouter.post("/request", postRequest);
+adminRouter.post("/update-status", postUpdateReq);
 router.get("/", getLoginPage);
 router.post("/login-endpoint", login);
 module.exports = {

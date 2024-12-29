@@ -63,6 +63,28 @@ const updateCategory = async (id, name, des) => {
     [name, des, id]
   );
 };
+const createRequest = async (
+  id,
+  name,
+  product,
+  quantity,
+  start_date,
+  end_date,
+  create_at
+) => {
+  let [results, fields] = await connection.query(
+    `INSERT INTO request (id, name_employee, name_product, quantity, start_date, end_date, created_at, status)
+     VALUES (?, ?, ?, ?, ?, ?, ?, "Chờ")`,
+    [id, name, product, quantity, start_date, end_date, create_at] // Thêm các giá trị vào đây
+  );
+};
+const displayRequest = async (req, res) => {
+  let [results, fields] = await connection.query(`
+    SELECT * FROM request WHERE status = 'Chờ' ORDER BY created_at ASC;
+    `);
+  return results;
+};
+
 module.exports = {
   displayCategorary,
   createCatrgory,
@@ -70,4 +92,6 @@ module.exports = {
   deleteCategorary,
   checkCategoryUsedInProduct,
   updateCategory,
+  createRequest,
+  displayRequest,
 };
